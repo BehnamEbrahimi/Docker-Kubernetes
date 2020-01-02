@@ -1,17 +1,17 @@
-docker image build -t jeffersonfaseler/multi-client -t jeffersonfaseler/multi-client:$MIN_SHA -f ./client/Dockerfile.dev ./client
-docker image build -t jeffersonfaseler/multi-server -t jeffersonfaseler/multi-server:$MIN_SHA -f ./server/Dockerfile.dev ./server
-docker image build -t jeffersonfaseler/multi-worker -t jeffersonfaseler/multi-worker:$MIN_SHA -f ./worker/Dockerfile.dev ./worker
+docker image build -t behnamebrahimi/docker-complex-client -t behnamebrahimi/docker-complex-client:$MIN_SHA -f ./client/Dockerfile.dev ./client
+docker image build -t behnamebrahimi/docker-complex-server -t behnamebrahimi/docker-complex-server:$MIN_SHA -f ./server/Dockerfile.dev ./server
+docker image build -t behnamebrahimi/docker-complex-worker -t behnamebrahimi/docker-complex-worker:$MIN_SHA -f ./worker/Dockerfile.dev ./worker
 
-docker push jeffersonfaseler/multi-client:latest
-docker push jeffersonfaseler/multi-server:latest
-docker push jeffersonfaseler/multi-worker:latest
+docker push behnamebrahimi/docker-complex-client:latest
+docker push behnamebrahimi/docker-complex-server:latest
+docker push behnamebrahimi/docker-complex-worker:latest
 
-docker push jeffersonfaseler/multi-client:$MIN_SHA
-docker push jeffersonfaseler/multi-server:$MIN_SHA
-docker push jeffersonfaseler/multi-worker:$MIN_SHA
+docker push behnamebrahimi/docker-complex-client:$MIN_SHA
+docker push behnamebrahimi/docker-complex-server:$MIN_SHA
+docker push behnamebrahimi/docker-complex-worker:$MIN_SHA
 
 kubectl apply -f k8s/
 
-kubectl set image deployments/server-deployment server=jeffersonfaseler/multi-server:$MIN_SHA
-kubectl set image deployments/client-deployment client=jeffersonfaseler/multi-client:$MIN_SHA
-kubectl set image deployments/worker-deployment worker=jeffersonfaseler/multi-worker:$MIN_SHA
+kubectl set image deployments/server-deployment server=behnamebrahimi/docker-complex-server:$MIN_SHA
+kubectl set image deployments/client-deployment client=behnamebrahimi/docker-complex-client:$MIN_SHA
+kubectl set image deployments/worker-deployment worker=behnamebrahimi/docker-complex-worker:$MIN_SHA

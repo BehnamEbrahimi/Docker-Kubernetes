@@ -1,5 +1,5 @@
 sudo: required
-services: "-docker"
+services: '-docker'
 env:
   global:
     - MIN_SHA=$(git rev-parse HEAD | cut -c1-7)
@@ -14,10 +14,10 @@ before_install:
   - gcloud config set compute/zone us-central1-a
   - gcloud container clusters get-credentials k8s-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t jeffersonfaseler/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t behnamebrahimi/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true jeffersonfaseler/react-test npm test
+  - docker run -e CI=true behnamebrahimi/react-test npm test
 
 deploy:
   provider: script
