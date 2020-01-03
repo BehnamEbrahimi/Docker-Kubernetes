@@ -1,0 +1,34 @@
+apiVersion: skaffold/v1beta2
+kind: Config
+build:
+  local:
+    push: false
+  artifacts:
+    - image: behnamebrahimi/docker-complex-client
+      context: client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        '**/*.js': .
+        '**/*.css': .
+        '**/*.html': .
+    - image: behnamebrahimi/docker-complex-server
+    context: server
+    docker:
+      dockerfile: Dockerfile.dev
+    sync:
+      '**/*.js': .
+    - image: behnamebrahimi/docker-complex-worker
+    context: worker
+    docker:
+      dockerfile: Dockerfile.dev
+    sync:
+      '**/*.js': .
+deploy:
+  kubectl:
+    manifests:
+      - k8s/client-deplyment.yml
+      - k8s/servre-deplyment.yml
+      - k8s/worker-deplyment.yml
+      - k8s/server-cluster-ip-service.yml
+      - k8s/client-cluster-ip-service.yml
